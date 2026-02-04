@@ -13,7 +13,7 @@ const app = express();
 // PORT (must support Railway)
 const PORT = process.env.PORT || 4000
 
-mongoose.connect(process.env.MONG_URI)
+mongoose.connect(process.env.MONGO_URI)
     .then(() => {
         app.listen(PORT, () => {
             console.log(`listeneing on port ${PORT}`);
