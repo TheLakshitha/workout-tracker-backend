@@ -9,10 +9,14 @@ const mongoose = require('mongoose');
 const app = express();
 
 //connet to DB & listen for requests
+
+// PORT (must support Railway)
+const PORT = process.env.PORT || 4000
+
 mongoose.connect(process.env.MONG_URI)
     .then(() => {
-        app.listen(process.env.PORT, () => {
-            console.log("listeneing on port 4000!!");
+        app.listen(PORT, () => {
+            console.log(`listeneing on port ${PORT}`);
         });
     })
     .catch((error) => {
