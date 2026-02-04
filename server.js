@@ -1,40 +1,40 @@
 require('dotenv').config()
 
-const express = require('express');
-const workoutRoutes = require('./routes/workouts');
-const userRoutes = require('./routes/user');
-const mongoose = require('mongoose');
+const express = require('express')
+const workoutRoutes = require('./routes/workouts')
+const userRoutes = require('./routes/user')
+const mongoose = require('mongoose')
 
-//express app
-const app = express();
+// Express app
+const app = express()
 
-//connet to DB & listen for requests
-
-// PORT (must support Railway)
-const PORT = process.env.PORT || 4000
-
-mongoose.connect(process.env.MONGO_URI)
-    .then(() => {
-        console.log("MongoDB connected ✅");
-        app.listen(PORT, () => {
-            console.log(`listeneing on port ${PORT}`);
-        });
-    })
-    .catch((error) => {
-        console.log(error)
-    })
-
-
-//middleware
-app.use(express.json()); //looks for any body in the reqest and passes it req object
-
+// Middleware
+app.use(express.json())
 app.use((req, res, next) => {
-    console.log(req.path, req.method)
-    next();
+  console.log(req.path, req.method)
+  next()
 })
 
-//routes
+// Routes
 app.use('/api/workouts', workoutRoutes)
 app.use('/api/user', userRoutes)
 
+// Health check route (prevents Railway from stopping container)
+app.get('/health', (req, res) => {
+  res.send('OK')
+})
 
+// PORT (Railway sets process.env.PORT)
+const PORT = process.env.PORT || 4000
+
+// Connect to MongoDB & start server
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => {
+    console.log('MongoDB connected ✅')
+    app.listen(PORT, () => {
+      console.log(`listening on port ${PORT}`)
+    })
+  })
+  .catch((error) => {
+    console.log('DB connection error:', error)
+  })
