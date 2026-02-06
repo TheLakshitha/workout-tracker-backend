@@ -13,7 +13,7 @@ const app = express()
 app.use(cors({
   origin: [
     'http://localhost:3000',
-    'https://YOUR_FRONTEND_DOMAIN_HERE'
+    'https:/workout-tracker-frontend-silk.vercel.app'
   ],
   credentials: true
 }))                          // ✅ ALLOWS ALL ORIGINS FOR NOW
