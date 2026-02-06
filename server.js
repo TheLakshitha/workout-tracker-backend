@@ -12,11 +12,11 @@ const app = express()
 // ===== ADD CORS MIDDLEWARE HERE =====
 app.use(cors({
   origin: [
-    'http://localhost:3000',
-    'https:/workout-tracker-frontend-silk.vercel.app'
+    'https://workout-tracker-frontend-silk.vercel.app'
   ],
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
   credentials: true
-}))                          // ✅ ALLOWS ALL ORIGINS FOR NOW
+}))
 
 // Middleware
 app.use(express.json())
