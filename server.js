@@ -10,7 +10,13 @@ const mongoose = require('mongoose')
 const app = express()
 
 // ===== ADD CORS MIDDLEWARE HERE =====
-app.use(cors())                            // ✅ ALLOWS ALL ORIGINS FOR NOW
+app.use(cors({
+  origin: [
+    'http://localhost:3000',
+    'https://YOUR_FRONTEND_DOMAIN_HERE'
+  ],
+  credentials: true
+}))                          // ✅ ALLOWS ALL ORIGINS FOR NOW
 
 // Middleware
 app.use(express.json())
